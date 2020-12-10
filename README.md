@@ -1,2 +1,4 @@
 # WGanalysis
-This is the directory where i will be storing my code
+## Code for CMH analysis with Popoolation2
+## Code for SNP calling and variant analysis
+
