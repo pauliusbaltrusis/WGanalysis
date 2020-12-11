@@ -29,7 +29,7 @@ do
 base=$(basename $sample .bam)
 java -jar $PICARD_HOME/picard.jar MarkDuplicates I=$sample O=$base.cleanreads.bam REMOVE_DUPLICATES=true M=$base_metrics.txt
 samtools view -b -f 2 $base.cleanreads.bam |
-samtools sort --threads 8 > $base.final.sorted.bam
+samtools sort --threads 8 -T temp > $base.final.sorted.bam
 samtools index $base.final.sorted.bam
 done
 ```
