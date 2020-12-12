@@ -17,7 +17,7 @@ base=$(basename $sample R1.fq.gz)
 echo "$base"
 bwa mem -t 16 $bwa_db $rec/${base}R1.fq.gz $rec/${base}R2.fq.gz |
 samtools view -b |
-samtools sort --threads 8 > $new_dir/${base}R.bam
+samtools sort --threads 8 -T temp > $new_dir/${base}R.bam
 samtools index $new_dir/${base}R.bam
 
 done
