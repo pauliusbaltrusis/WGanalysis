@@ -24,13 +24,13 @@ done
 ```
 ### Picard_tools and duplicate removal
 ```shell
-for sample in $new_dir/*R.bam
+new_dir=/home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER
+for sample in $new_dir/*.bam
 do
 base=$(basename $sample .bam)
-java -jar $PICARD_HOME/picard.jar MarkDuplicates I=$sample O=$base.cleanreads.bam REMOVE_DUPLICATES=true M=$base_metrics.txt
-samtools view -b -f 2 $base.cleanreads.bam |
-samtools sort --threads 8 -T temp > $base.final.sorted.bam
-samtools index $base.final.sorted.bam
+java -jar $PICARD_ROOT/picard.jar MarkDuplicates -I $sample -O $base.cleanreads.bam -REMOVE_DUPLICATES true -M .txt
+samtools view -b -f 2 $base.cleanreads.bam > $base.final.bam
+samtools sort $base.final.bam -o $base.final.sorted.bam
 done
 ```
 ### Indexing reference genome
