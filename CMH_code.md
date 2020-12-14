@@ -24,7 +24,6 @@ done
 ```
 ### Picard_tools and duplicate removal
 ```shell
-new_dir=/home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER
 for sample in $new_dir/*.bam
 do
 base=$(basename $sample .bam)
