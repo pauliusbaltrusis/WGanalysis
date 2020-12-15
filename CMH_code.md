@@ -52,3 +52,12 @@ do
 sed 's/\t\t/\t!\t!/g' $sample > $sample.new
 done
 ```
+### Creating synchronized files
+``` shell
+module load popoolation2
+for sample in $new_dir/*.new
+do
+base=$(basename $sample .new)
+mpileup2sync.pl --input $sample --min-qual 20 --output $base.sync
+done
+```
