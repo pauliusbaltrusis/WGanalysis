@@ -36,21 +36,22 @@ done
 ``` shell
 samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ```
-### Making mpileup
+### Making a joint mpileup
 ``` shell
-for sample in $new_dir/*.bam
-do
-base=$(basename $sample .bam)
 samtools mpileup -d 500 -f /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa \
-$sample > ${base}.raw.mpileup
-done
+I1_R.final.sorted.bam \
+I2_R.final.sorted.bam \
+I3_R.final.sorted.bam \
+I4_R.final.sorted.bam \
+P1_R.final.sorted.bam \
+P2_R.final.sorted.bam \
+P3_R.final.sorted.bam \
+P4_R.final.sorted.bam \
+-o $new_dir/IP.unchecked.mpileup
 ```
 ### Substituting hidden tabulations
 ``` shell
-for sample in $new_dir/*.mpileup
-do
-sed 's/\t\t/\t!\t!/g' $sample > $sample.new
-done
+sed 's/\t\t/\t!\t!/g' $new_dir/IP.unchecked.mpileup > IP.final.mpileup
 ```
 ### Creating synchronized files
 ``` shell
