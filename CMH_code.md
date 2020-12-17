@@ -56,9 +56,5 @@ sed 's/\t\t/\t!\t!/g' $new_dir/IP.unchecked.mpileup > IP.final.mpileup
 ### Creating synchronized files
 ``` shell
 module load popoolation2
-for sample in $new_dir/*.new
-do
-base=$(basename $sample .new)
-mpileup2sync.pl --input $sample --min-qual 20 --output $base.sync
-done
+mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP.final.sync
 ```
