@@ -56,5 +56,10 @@ sed 's/\t\t/\t!\t!/g' $new_dir/IP.unchecked.mpileup > IP.final.mpileup
 ### Creating synchronized files
 ``` shell
 module load popoolation2
-mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP.final.sync
+mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP.sync
+```
+### CMH-test
+``` shell
+cmh-test.pl --input IP.sync --output IP_cmh.cmh --min-count 5 --min-coverage 20 --max-coverage 500 --population 1-5,2-6,3-7,4-8
+cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
 ```
