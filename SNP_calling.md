@@ -42,3 +42,26 @@ echo "finished"
 ``` shell
 samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ```
+### SNP calling and quality filtering
+``` shell
+ref=/domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
+for i in *.bam
+do
+  bcftools mpileup -Ou -f $ref $i | bcftools call -mv -Ob -o $i.bcf
+  bcftools view -i '%QUA>20' $i.bcf -o $i.qual20.vcf
+done
+```
+### Creating Haemonchus c. database on snpEFF
+``` shell
+module load bioinfo-tools
+module load snpEff/4.3t
+java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -gff3 GCA_000469685.2
+```
+### SNP annotating
+``` shell
+for i in merged.*.bam.qual20.vcf
+do
+base=$(basename $i .bam.qual20.vcf)
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.vcf
+done
+```
