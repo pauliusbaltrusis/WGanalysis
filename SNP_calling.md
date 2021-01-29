@@ -65,3 +65,7 @@ base=$(basename $i .bam.qual20.vcf)
 java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.vcf
 done
 ```
+#### Errors during annotating
+
+![image](erroors.PNG)
+![image](errs.PNG)
