@@ -51,6 +51,11 @@ do
   bcftools view -i '%QUA>20' $i.bcf -o $i.qual20.vcf
 done
 ```
+### calculating MAF and AF for .vcfs
+``` shell
+bcftools +fill-tags merged.I.bam.qual.20.vcf -Ov -o merged.I.AF.vcf -- -t MAF,AF
+bcftools +fill-tags merged.P.bam.qual.20.vcf -Ov -o merged.P.AF.vcf -- -t MAF,AF
+```
 ### Creating Haemonchus c. database on snpEFF
 ``` shell
 module load bioinfo-tools
@@ -59,9 +64,9 @@ java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -g
 ```
 ### SNP annotating
 ``` shell
-for i in merged.*.bam.qual20.vcf
+for i in merged.*.AF.vcf
 do
-base=$(basename $i .bam.qual20.vcf)
+base=$(basename $i .AF.vcf)
 java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.vcf
 done
 ```
