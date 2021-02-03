@@ -51,7 +51,7 @@ do
   bcftools view -i '%QUA>20' $i.bcf -o $i.qual20.vcf
 done
 ```
-### calculating MAF and AF for .vcfs
+### Calculating MAF and AF for .vcfs
 ``` shell
 bcftools +fill-tags merged.I.bam.qual.20.vcf -Ov -o merged.I.AF.vcf -- -t MAF,AF
 bcftools +fill-tags merged.P.bam.qual.20.vcf -Ov -o merged.P.AF.vcf -- -t MAF,AF
@@ -75,7 +75,9 @@ done
 ![image](erroors.PNG)
 ![image](errs.PNG)
 
-### extracting CHR, POS, DP, AF and MAF step-by-step
+### Extracting CHR, POS, DP, AF and MAF step-by-step
 ``` shell
 more merged.I.ann.vcf | cut -f 1,2,4,5,8,10| sed 's/|/\t/g' | cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant" | cut -f 1,2,5 | sed 's/;/\t/g' | cut 1,2,3,17,18 > I_SNP_frequencies.table
 ```
+#### looking into the frequencies table with less
+![image](CHR POS DP AF MAF.PNG)
