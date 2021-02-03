@@ -80,4 +80,5 @@ done
 more merged.I.ann.vcf | cut -f 1,2,4,5,8,10| sed 's/|/\t/g' | cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant" | cut -f 1,2,5 | sed 's/;/\t/g' | cut 1,2,3,17,18 > I_SNP_frequencies.table
 ```
 #### looking into the frequencies table with less
+
 ![image](CHR POS DP AF MAF.PNG)
