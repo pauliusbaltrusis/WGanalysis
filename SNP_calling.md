@@ -81,4 +81,4 @@ more merged.I.ann.vcf | cut -f 1,2,4,5,8,10| sed 's/|/\t/g' | cut -f 1,2,3,4,5,6
 ```
 #### looking into the frequencies table with less
 
-![image](CHR POS DP AF MAF.PNG)
+![image](CHR_POS_DP_AF_MAF.PNG)
