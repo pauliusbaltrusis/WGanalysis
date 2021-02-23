@@ -82,3 +82,72 @@ more dp4merged.P.ann.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,
 #### looking into the frequencies table with less
 
 ![image](CHR_POS_DP_AF_MAF.PNG)
+
+### Ggplot to make Allele frequency per POS plots
+``` shell
+library(tidyverse)
+library(ggpubr)
+I_split<-split(I, I$CHR)
+I0<-I_split$`0`
+I1<-I_split$`1`
+I2<-I_split$`2`
+I3<-I_split$`3`
+I4<-I_split$`4`
+I5<-I_split$`5`
+I6<-I_split$`6`
+
+P_split<-split(P, I$CHR)
+P0<-P_split$`0`
+P1<-P_split$`1`
+P2<-P_split$`2`
+P3<-P_split$`3`
+P4<-P_split$`4`
+P5<-P_split$`5`
+P6<-P_split$`6`
+
+I0_plot<-I0 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ))+
+  geom_point(colour='gray')
+I1_plot<-I1 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+I2_plot<-I2 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+I3_plot<-I3 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+I4_plot <-I4 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+I5_plot<- I5 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+I6_plot<- I6 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+  
+P1_plot<-P1 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()  
+P2_plot<-P2 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()  
+P3_plot<-P3 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+P4_plot<-P4 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+P5_plot<-P5 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+P6_plot<-P6 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ, color=IMPACT))+
+  geom_point()
+P0_plot<-P0 %>%
+  ggplot(aes(x=POS, y=ALT_FREQ))+
+  geom_point()
+ggarrange(I1_plot,I2_plot,I3_plot,I4_plot,I5_plot,I6_plot,I0_plot, P1_plot,P2_plot,P3_plot,P4_plot,P5_plot,P6_plot,P0_plot, ncol=7, nrow=2, common.legend = TRUE, legend = "bottom" ,labels=c("CHR1","CHR2","CHR3","CHR4","CHR5","CHR6", "CHRmt"))
+![image](IP.PNG) 
+ 
