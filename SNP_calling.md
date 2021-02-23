@@ -150,5 +150,6 @@ P0_plot<-P0 %>%
   geom_point()
 ggarrange(I1_plot,I2_plot,I3_plot,I4_plot,I5_plot,I6_plot,I0_plot, P1_plot,P2_plot,P3_plot,P4_plot,P5_plot,P6_plot,P0_plot, ncol=7, nrow=2, common.legend = TRUE, legend = "bottom" ,labels=c("CHR1","CHR2","CHR3","CHR4","CHR5","CHR6", "CHRmt"))
 ```
+### Allele frequencies of ALT per chromosome per position I (before; above) P (after; below)
 ![image](IP_snps.PNG) 
  
