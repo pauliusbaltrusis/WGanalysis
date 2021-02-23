@@ -47,14 +47,14 @@ samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ref=/domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 for i in *.bam
 do
-  bcftools mpileup -Ou -f $ref $i | bcftools call -mv -Ob -o $i.bcf
-  bcftools view -i '%QUA>20' $i.bcf -o $i.qual20.vcf
+  bcftools mpileup --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -Ou -f $ref $i | bcftools call -mv -Ov -o $i.vcf
+  bcftools view -i 'QUAL>20 && DP>20' $i.bcf -o $i.qual20.vcf
 done
 ```
-### Calculating MAF and AF for .vcfs
+### Retaining only INFO/DP4s to calculate allele frequencies for .vcfs
 ``` shell
-bcftools +fill-tags merged.I.bam.qual.20.vcf -Ov -o merged.I.AF.vcf -- -t MAF,AF
-bcftools +fill-tags merged.P.bam.qual.20.vcf -Ov -o merged.P.AF.vcf -- -t MAF,AF
+bcftools annotate -x FORMAT,^INFO/DP4 merged.I.AF.vcf > dp4merged.I.ann.vcf
+bcftools annotate -x FORMAT,^INFO/DP4 merged.P.AF.vcf > dp4merged.P.ann.vcf
 ```
 ### Creating Haemonchus c. database on snpEFF
 ``` shell
@@ -64,10 +64,10 @@ java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -g
 ```
 ### SNP annotating
 ``` shell
-for i in merged.*.AF.vcf
+for i in dp4merged.*.ann.vcf
 do
-base=$(basename $i .AF.vcf)
-java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.vcf
+base=$(basename $i .ann.vcf)
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.final.vcf
 done
 ```
 #### Errors during annotating
@@ -75,9 +75,9 @@ done
 ![image](erroors.PNG)
 ![image](errs.PNG)
 
-### Extracting CHR, POS, DP, AF and MAF step-by-step
+### Extracting CHR, POS, DP, DP4 and other important info step-by-step
 ``` shell
-more merged.I.ann.vcf | cut -f 1,2,4,5,8,10| sed 's/|/\t/g' | cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant" | cut -f 1,2,5 | sed 's/;/\t/g' | cut 1,2,3,17,18 > I_SNP_frequencies.table
+more dp4merged.P.ann.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant"| grep -v "##" | sed 's/;/\t/g' > P.merged.vcf
 ```
 #### looking into the frequencies table with less
 
