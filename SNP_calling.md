@@ -45,10 +45,8 @@ samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ### SNP calling and quality filtering
 ``` shell
 ref=/domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
-for i in *.bam
-do
-  bcftools mpileup --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -Ou -f $ref $i | bcftools call -mv -Ov -o $i.vcf
-  bcftools view -i 'QUAL>20 && DP>20' $i.bcf -o $i.qual20.vcf
+bcftools mpileup --bam-list list_bam --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -Ou -f $ref | bcftools call -mv -Ov -o IP_both.vcf
+bcftools view -i 'QUAL>20 && DP>20' $i.bcf -o IP_both.qualdp20.vcf
 done
 ```
 ### Retaining only INFO/DP4s to calculate allele frequencies for .vcfs
