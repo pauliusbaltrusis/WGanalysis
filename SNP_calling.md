@@ -49,10 +49,15 @@ bcftools mpileup --bam-list list_bam --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -Ou 
 bcftools view -i 'QUAL>20 && DP>20' $i.bcf -o IP_both.qualdp20.vcf
 done
 ```
+### Spliting a .vcf
+``` shell
+bcftools view -s merged.I.bam IP_both.qualdp20.vcf > merged.I.vcf
+bcftools view -s merged.P.bam IP_both.qualdp20.vcf > merged.P.vcf
+```
 ### Retaining only INFO/DP4s to calculate allele frequencies for .vcfs
 ``` shell
-bcftools annotate -x FORMAT,^INFO/DP4 merged.I.AF.vcf > dp4merged.I.ann.vcf
-bcftools annotate -x FORMAT,^INFO/DP4 merged.P.AF.vcf > dp4merged.P.ann.vcf
+bcftools annotate -x FORMAT,^INFO/DP4 merged.I.vcf > merged.I.ann.vcf
+bcftools annotate -x FORMAT,^INFO/DP4 merged.P.vcf > merged.P.ann.vcf
 ```
 ### Creating Haemonchus c. database on snpEFF
 ``` shell
@@ -62,10 +67,10 @@ java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -g
 ```
 ### SNP annotating
 ``` shell
-for i in dp4merged.*.ann.vcf
+for i in merged.*.ann.vcf
 do
 base=$(basename $i .ann.vcf)
-java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.ann.final.vcf
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.final.vcf
 done
 ```
 #### Errors during annotating
@@ -75,7 +80,7 @@ done
 
 ### Extracting CHR, POS, DP, DP4 and other important info step-by-step
 ``` shell
-more dp4merged.P.ann.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant"| grep -v "##" | sed 's/;/\t/g' > P.merged.vcf
+more merged.P.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant"| grep -v "##" | sed 's/;/\t/g' > P.merged.vcf
 ```
 #### looking into the frequencies table with less
 
