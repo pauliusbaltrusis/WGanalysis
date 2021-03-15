@@ -38,7 +38,7 @@ samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ```
 ### Making a joint mpileup
 ``` shell
-samtools mpileup -d 500 -f /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa \
+samtools mpileup -d 500 --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -f /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa \
 I1_R.final.sorted.bam \
 I2_R.final.sorted.bam \
 I3_R.final.sorted.bam \
@@ -63,4 +63,3 @@ mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP.sync
 cmh-test.pl --input IP.sync --output IP_cmh.cmh --min-count 5 --min-coverage 20 --max-coverage 500 --population 1-5,2-6,3-7,4-8
 cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
 ```
-![image](igv_snapshot.png)
