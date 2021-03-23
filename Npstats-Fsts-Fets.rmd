@@ -1,8 +1,9 @@
+``` shell
 # Fst and Fet evaluation of mpileups
 ## Merging separate aligned .bam files into two "I" and "P"
 module load bioinfo-tools
 module load samtools
-
+```
 samtools merge merged.I.bam -b list_bam_I.txt
 samtools merge merged.P.bam -b list_bam_P.txt
 
