@@ -19,26 +19,26 @@ sed 's/\t\t/\t!\t!/g' IP2.unchecked.mpileup > IP2.final.mpileup
 ## Spliting mpileups by sample (I or P) and chr
 ``` shell
 less IP2.final.mpileup | cut -f 1,2,3,4,5,6 > I.only.mpileup
-less IP2.final.mpileup | cut -f 1,2,3,7,8,9 > P.only mpileup
+less IP2.final.mpileup | cut -f 1,2,3,7,8,9 > P.only.mpileup
 ```
 ### By chr for I
 ``` shell
-grep "haemonchus_chr4_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR4.mpileup
-grep "haemonchus_chr5_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR5.mpileup
-grep "haemonchus_chr1_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR1.mpileup
-grep "haemonchus_chr2_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR2.mpileup
-grep "haemonchus_chr3_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR3.mpileup
-grep "haemonchus_chrX_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHRX.mpileup
+grep "hcontortus_chr4_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR4.mpileup
+grep "hcontortus_chr5_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR5.mpileup
+grep "hcontortus_chr1_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR1.mpileup
+grep "hcontortus_chr2_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR2.mpileup
+grep "hcontortus_chr3_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHR3.mpileup
+grep "hcontortus_chrX_Celeg_TT_arrow_pilon" I.only.mpileup > I_CHRX.mpileup
 grep "hcontortus_chr_mtDNA_arrow_pilon" I.only.mpileup > I_CHRMT.mpileup
 ```
 ### By chr for P
 ``` shell
-grep "haemonchus_chr4_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR4.mpileup
-grep "haemonchus_chr5_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR5.mpileup
-grep "haemonchus_chr1_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR1.mpileup
-grep "haemonchus_chr2_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR2.mpileup
-grep "haemonchus_chr3_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR3.mpileup
-grep "haemonchus_chrX_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHRX.mpileup
+grep "hcontortus_chr4_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR4.mpileup
+grep "hcontortus_chr5_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR5.mpileup
+grep "hcontortus_chr1_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR1.mpileup
+grep "hcontortus_chr2_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR2.mpileup
+grep "hcontortus_chr3_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR3.mpileup
+grep "hcontortus_chrX_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHRX.mpileup
 grep "hcontortus_chr_mtDNA_arrow_pilon" P.only.mpileup > P_CHRMT.mpileup
 ```
 
