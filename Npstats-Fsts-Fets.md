@@ -41,6 +41,14 @@ grep "hcontortus_chr3_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHR3.mpileup
 grep "hcontortus_chrX_Celeg_TT_arrow_pilon" P.only.mpileup > P_CHRX.mpileup
 grep "hcontortus_chr_mtDNA_arrow_pilon" P.only.mpileup > P_CHRMT.mpileup
 ```
+## Npstat/1
+``` shell
+module load NPStat/1
+for i in *_CHR*
+do
+npstat -n 200 -l 100000 -maxcov 300 -minqual 20 $i
+done
+```
 
 ## Syncing
 ``` shell
