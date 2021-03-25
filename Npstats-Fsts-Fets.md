@@ -49,7 +49,10 @@ do
 npstat -n 200 -l 100000 -maxcov 300 -minqual 20 $i
 done
 ```
-
+### Tajima's D vs 100kbp windows for "I"
+![image](I_tajima.png)
+### Tajima's D vs 100kbp windows for "P"
+![image](P_tajima.png)
 
 ## Syncing
 ``` shell
