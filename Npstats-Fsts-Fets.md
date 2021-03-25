@@ -49,10 +49,12 @@ do
 npstat -n 200 -l 100000 -maxcov 300 -minqual 20 $i
 done
 ```
-### Tajima's D vs 100kbp windows for "I"
+### Tajima's D vs 100kbp windows and nucleotide diversity (Pi) for "I"
 ![image](I_tajima.png)
-### Tajima's D vs 100kbp windows for "P"
+![image](I_pi.png)
+### Tajima's D vs 100kbp windows and nucleotide diversity (Pi) for "P"
 ![image](P_tajima.png)
+![image](P_pi.png)
 
 ## Syncing
 ``` shell
