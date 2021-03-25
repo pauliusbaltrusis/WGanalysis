@@ -64,7 +64,11 @@ mpileup2sync.pl --input IP2.final.mpileup --min-qual 20 --output IP2_filtered.sy
 ```
 ## Finding +5 bp indels and removing them from the synced files
 ``` shell
-perl /sw/bioinfo/popoolation2/1201/rackham/indel_filtering/identify-indel-regions.pl --min-count 2 --indel-window 5 --input IP2_filtered.sync --output indels.gtf
+perl /sw/bioinfo/popoolation2/1201/rackham/indel_filtering/identify-indel-regions.pl --min-count 2 --indel-window 5 --input IP2.final.mpileup --output indels.gtf
 perl /sw/bioinfo/popoolation2/1201/rackham/indel_filtering/filter-sync-by-gtf.pl --input IP2_filtered.sync --output IP_noindels.sync --gtf indels.gtf
 ```
-
+## Fst and Fet calculations
+``` shell
+popoolation2 perl /sw/bioinfo/popoolation2/1201/rackham/fst-sliding.pl --input IP_noindels.sync --output IP2.fst --pool-size 100 --window-size 10000 --step-size 5000 --min-count 4 --min-coverage 50 --max-coverage 2%
+popoolation2 perl perl /sw/bioinfo/popoolation2/1201/rackham/fisher-test.pl --input IP_noindels.sync --output IP2.fet  --min-count 4 --min-coverage 20 --max coverage 2% --suppress-noninformative
+```
