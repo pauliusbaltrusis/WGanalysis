@@ -50,6 +50,7 @@ npstat -n 200 -l 100000 -maxcov 300 -minqual 20 $i
 done
 ```
 
+
 ## Syncing
 ``` shell
 module load bcftools
