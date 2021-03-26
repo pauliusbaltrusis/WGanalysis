@@ -58,14 +58,13 @@ sed 's/\t\t/\t!\t!/g' $new_dir/IP.unchecked.mpileup > IP.final.mpileup
 module load popoolation2
 mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP_filtered.sync
 ```
-### CMH-test
+### CMH-test 
+#### populations 1,2,3,4 are replicates (of untreated group), populations 5,6,7,8 are replicates (of the treated group)
 ``` shell
 cmh-test.pl --input IP_filtered.sync --output IP_cmh.cmh --min-count 5 --min-coverage 20 --max-coverage 500 --population 1-5,2-6,3-7,4-8
 cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
 ```
 
-### Not filtered SNPS
-![image](igv_snapshot.png)
-### Filtered SNPS (--min-MQ 30 --min-BQ 30 --adjust-MQ 50) 
+### Output (pop1-5, pop2-6, pop3-7, pop4-8)
 ![image](igv_snapshot_newfiltered.jpeg)
 ![image](CMH-test.png)
