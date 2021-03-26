@@ -68,3 +68,4 @@ cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
 ![image](igv_snapshot.png)
 ### Filtered SNPS (--min-MQ 30 --min-BQ 30 --adjust-MQ 50) 
 ![image](igv_snapshot_newfiltered.jpeg)
+![image](CMH-test.png)
