@@ -1,5 +1,5 @@
 
-# Fst and Fet evaluation of mpileups
+# Fst and Fet in mpileups
 ## Merging separate aligned .bam files into two "I" and "P"
 ``` shell
 module load bioinfo-tools
@@ -77,4 +77,7 @@ perl /sw/bioinfo/popoolation2/1201/rackham/fisher-test.pl --input IP_noindels.sy
 perl /sw/bioinfo/popoolation2/1201/rackham/export/pwc2igv.pl --input IP2.fst --output IP2.fst.igv
 perl /sw/bioinfo/popoolation2/1201/rackham/export/pwc2igv.pl --input IP2.fet --output IP2.fet.igv
 ```
-
+### FST results
+![image](FST.png)
+### FET results
+![image](FET.png)
