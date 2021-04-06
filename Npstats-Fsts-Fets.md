@@ -69,7 +69,7 @@ perl /sw/bioinfo/popoolation2/1201/rackham/indel_filtering/filter-sync-by-gtf.pl
 ```
 ## Fst and Fet calculations
 ``` shell
-perl /sw/bioinfo/popoolation2/1201/rackham/fst-sliding.pl --input IP_noindels.sync --output IP2.fst --pool-size 100 --window-size 10000 --step-size 5000 --min-count 4 --min-coverage 50 --max-coverage 2%
+perl /sw/bioinfo/popoolation2/1201/rackham/fst-sliding.pl --input IP_noindels.sync --output IP2.fst --pool-size 100 --window-size 10000 --step-size 5000 --min-count 4 --min-coverage 20 --max-coverage 300
 perl /sw/bioinfo/popoolation2/1201/rackham/fisher-test.pl --input IP_noindels.sync --output IP2.fet  --min-count 4 --min-coverage 20 --max-coverage 300 --suppress-noninformative
 ```
 ## Exporting into easier-to-handle formats
