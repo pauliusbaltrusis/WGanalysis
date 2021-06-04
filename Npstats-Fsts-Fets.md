@@ -46,15 +46,13 @@ grep "hcontortus_chr_mtDNA_arrow_pilon" P.only.mpileup > P_CHRMT.mpileup
 module load NPStat/1
 for i in *_CHR*
 do
-npstat -n 200 -l 100000 -maxcov 300 -minqual 20 $i
+npstat -n 200 -l 100000 -maxcov 500 -minqual 20 $i
 done
 ```
 ### Tajima's D vs 100kbp windows and nucleotide diversity (Pi) for "I"
-![image](I_tajima.png)
-![image](I_pi.png)
+
 ### Tajima's D vs 100kbp windows and nucleotide diversity (Pi) for "P"
-![image](P_tajima.png)
-![image](P_pi.png)
+
 
 ## Syncing
 ``` shell
@@ -69,8 +67,8 @@ perl /sw/bioinfo/popoolation2/1201/rackham/indel_filtering/filter-sync-by-gtf.pl
 ```
 ## Fst and Fet calculations
 ``` shell
-perl /sw/bioinfo/popoolation2/1201/rackham/fst-sliding.pl --input IP_noindels.sync --output IP2.fst --pool-size 100 --window-size 10000 --step-size 5000 --min-count 4 --min-coverage 20 --max-coverage 300
-perl /sw/bioinfo/popoolation2/1201/rackham/fisher-test.pl --input IP_noindels.sync --output IP2.fet  --min-count 4 --min-coverage 20 --max-coverage 300 --suppress-noninformative
+perl /sw/bioinfo/popoolation2/1201/rackham/fst-sliding.pl --input IP_noindels.sync --output IP2.fst --pool-size 1000 --window-size 10000 --step-size 5000 --min-count 4 --min-coverage 20 --max-coverage 2%
+perl /sw/bioinfo/popoolation2/1201/rackham/fisher-test.pl --input IP_noindels.sync --output IP2.fet  --min-count 4 --min-coverage 20 --max-coverage 2% --suppress-noninformative
 ```
 ## Exporting into easier-to-handle formats
 ``` shell
@@ -78,6 +76,6 @@ perl /sw/bioinfo/popoolation2/1201/rackham/export/pwc2igv.pl --input IP2.fst --o
 perl /sw/bioinfo/popoolation2/1201/rackham/export/pwc2igv.pl --input IP2.fet --output IP2.fet.igv
 ```
 ### FST results
-![image](FST.png)
+
 ### FET results
-![image](FET.png)
+
