@@ -423,3 +423,10 @@ ggsave('combined4_sumDP4more19.pdf',width = 10, height = 5)
 ### Allele frequencies of ALT per chromosome per position I (before; above) P (after; below)
 ![image](combined4_sumDP4more19.png) 
  
+# Calling variants and retaining only FET identified snps
+``` shell
+bcftools mpileup --bam-list list_bam -d 500 -Ou --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -f $ref | bcftools call -mv -Ov -o IP2_allvariants.vcf
+bgzip -c IP2_allvariants.vcf > IP2_allvariants.vcf.gz
+bcftools index IP2_allvariants.vcf.gz
+bcftools view -R IP.table.snpsites.txt -Ov -o IP2_FETvariantsonly.vcf IP2_allvariants.vcf.gz
+```
