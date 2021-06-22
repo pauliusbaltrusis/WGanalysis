@@ -58,7 +58,7 @@ done
 ``` shell
 module load bcftools
 module load popoolation2
-mpileup2sync.pl --input IP2.final.mpileup --min-qual 20 --output IP2_filtered.sync
+java -ea -Xmx7g -jar /sw/bioinfo/popoolation2/1201/rackham/mpileup2sync.jar --input IP2.final.mpileup --min-qual 20 --output IP2_filtered.sync
 ```
 ## Finding +5 bp indels and removing them from the synced files
 ``` shell
