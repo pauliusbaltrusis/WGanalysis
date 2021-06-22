@@ -56,13 +56,13 @@ sed 's/\t\t/\t!\t!/g' $new_dir/IP.unchecked.mpileup > IP.final.mpileup
 ### Creating synchronized files
 ``` shell
 module load popoolation2
-mpileup2sync.pl --input IP.final.mpileup --min-qual 20 --output IP_filtered.sync
+java -ea -Xmx7g -jar /sw/bioinfo/popoolation2/1201/rackham/mpileup2sync.jar --input IP.final.mpileup --min-qual 20 --output IP_filtered.sync
 ```
 ### CMH-test 
 #### populations 1,2,3,4 are replicates (of untreated group), populations 5,6,7,8 are replicates (of the treated group)
 ``` shell
-cmh-test.pl --input IP_filtered.sync --output IP_cmh.cmh --min-count 4 --min-coverage 20 --max-coverage 2% --population 1-5,2-6,3-7,4-8
-cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
+perl /sw/bioinfo/popoolation2/1201/rackham/cmh-test.pl --input IP_filtered.sync --output IP_cmh.cmh --min-count 4 --min-coverage 20 --max-coverage 2% --population 1-5,2-6,3-7,4-8
+perl /sw/bioinfo/popoolation2/1201/rackham/cmh2gwas.pl --input IP_cmh.cmh --output IP_cmh.gwas --min-pvalue 1.0e-20
 ```
 
 ### Output (pop1-5, pop2-6, pop3-7, pop4-8)
