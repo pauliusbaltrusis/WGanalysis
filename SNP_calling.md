@@ -44,16 +44,17 @@ samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ### SNP calling and quality filtering
 ``` shell
 ref=/domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
-bcftools mpileup --bam-list list_bam --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -Ou -f $ref | bcftools call -mv -Ov -o IP_both.vcf
-bcftools view -i 'QUAL>20 && DP>20' $i.bcf -o IP_both.qualdp20.vcf
-done
+bamfile1=/domus/h1/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER/merged.I.bam
+bamfile2=/domus/h1/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER/merged.P.bam
+bcftools mpileup -d 500 --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -a FORMAT/DP -f $ref $bamfile1 $bamfile2 | bcftools call -mv -Ov -o IP_calledvar.vcf
+bcftools view -i '%QUAL>=20 & FORMAT/DP>=20' IP_calledvar.vcf -o IP_calledvar.qualdp20.vcf
 ```
 ### Spliting a .vcf
 ``` shell
-bcftools view -s merged.I.bam IP_both.qualdp20.vcf > merged.I.vcf
-bcftools view -s merged.P.bam IP_both.qualdp20.vcf > merged.P.vcf
+bcftools view -s /domus/h1/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER/merged.I.bam IP_calledvar.qualdp20.vcf > Jul16.merged.I.vcf
+bcftools view -s /domus/h1/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER/merged.P.bam IP_calledvar.qualdp20.vcf > Jul16.merged.P.vcf
 ```
-### Retaining only INFO/DP4s to calculate allele frequencies for .vcfs
+### OPTIONAL Retaining only INFO/DP4s to calculate allele frequencies for .vcfs 
 ``` shell
 bcftools annotate -x FORMAT,^INFO/DP4 merged.I.vcf > merged.I.ann.vcf
 bcftools annotate -x FORMAT,^INFO/DP4 merged.P.vcf > merged.P.ann.vcf
@@ -66,16 +67,9 @@ java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -g
 ```
 ### SNP annotating
 ``` shell
-for i in merged.*.ann.vcf
-do
-base=$(basename $i .ann.vcf)
-java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 $i > $base.final.vcf
-done
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul16.merged.I.vcf > Jul16.merged.I.annotated.vcf
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul16.merged.P.vcf > Jul16.merged.P.annotated.vcf
 ```
-#### Errors during annotating
-
-![image](erroors.PNG)
-![image](errs.PNG)
 
 ### Extracting CHR, POS, DP, DP4 and other important info (+filtering) step-by-step
 ``` shell
