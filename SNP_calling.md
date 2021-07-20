@@ -41,7 +41,7 @@ samtools merge merged.P.bam -b listP_bam_files.txt
 ``` shell
 samtools faidx /domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 ```
-### SNP calling and quality filtering
+### SNP calling and quality filtering (call quality & depth)
 ``` shell
 ref=/domus/h1/pauliusb/Haemonchus_2018_genome/haemonchusnewest.fa
 bamfile1=/domus/h1/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER/merged.I.bam
@@ -65,13 +65,18 @@ module load bioinfo-tools
 module load snpEff/4.3t
 java -jar $SNPEFF_ROOT/snpEff.jar build -c Heacon.config -dataDir Heacon_data -gff3 GCA_000469685.2
 ```
+### Removing INDELS
+``` shell
+grep -v "INDEL" Jul16.merged.I.vcf > Jul20.merged.I.noindels.vcf
+grep -v "INDEL" Jul16.merged.P.vcf > Jul20.merged.P.noindels.vcf
+```
 ### SNP annotating
 ``` shell
-java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul16.merged.I.vcf > Jul16.merged.I.annotated.vcf
-java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul16.merged.P.vcf > Jul16.merged.P.annotated.vcf
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul20.merged.I.noindels.vcf > Jul20annotated.merged.I.vcf
+java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_000469685.2 Jul16.merged.P.noindels.vcf > Jul20annotated.merged.P.vcf
 ```
 
-### Extracting CHR, POS, DP, DP4 and other important info (+filtering) step-by-step
+### OPTIONAL Extracting CHR, POS, DP, DP4 and other important info (+filtering) step-by-step
 ``` shell
 more merged.P.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant"| grep -v "##" | sed 's/;/\t/g' > P.merged.vcf
 ```
