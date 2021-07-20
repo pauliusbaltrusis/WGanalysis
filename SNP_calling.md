@@ -80,6 +80,14 @@ java -jar $SNPEFF_ROOT/snpEff.jar -dataDir Heacon_data -c Heacon.config -v GCA_0
 ``` shell
 more merged.P.final.vcf | cut -f 1,2,4,5,8,10 | sed 's/|/\t/g'| cut -f 1,2,3,4,5,6,7,8,9 | grep -v "intergenic\|stream\|UTR\|intron_variant"| grep -v "##" | sed 's/;/\t/g' > P.merged.vcf
 ```
+### Subsetting the annotated files using FET and CMH snp files
+``` shell
+bgzip -c Jul20annotated.merged.I.noindels.vcf > Jul20annotated.merged.I.noindels.vcf.gz
+tabix -p vcf Jul20annotated.merged.I.noindels.vcf.gz
+bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/FET_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.FET.vcf
+bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/CMH_positions_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.CMH.vcf
+```
+
 #### looking into the frequencies table with less
 
 ![image](CHR_POS_etc.PNG)
