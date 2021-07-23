@@ -87,6 +87,16 @@ tabix -p vcf Jul20annotated.merged.I.noindels.vcf.gz
 bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/FET_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.FET.vcf
 bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/CMH_positions_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.CMH.vcf
 ```
+### Annotating MODERATE/HIGH impact snps in 10k window fst intervals
+``` shell
+module load BEDTools
+
+convert2bed -i vcf < Jul23annotated.merged.I.noindels.modhigh.vcf > bedjul23.annotations.bed
+less bedjul23.annotations.bed | cut -f 1,2,3 > bedjul23.shortened.bed
+
+bedtools intersect -wb -a bedjul23.shortened.bed -b fst_final_3sd.BED > joined3sd.bed
+bedtools intersect -wb -a bedjul23.shortened.bed -b fst_final_5sd.BED > joined5sd.bed
+```
 
 #### looking into the frequencies table with less
 
