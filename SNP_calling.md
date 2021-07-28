@@ -87,7 +87,7 @@ tabix -p vcf Jul20annotated.merged.I.noindels.vcf.gz
 bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/FET_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.FET.vcf
 bcftools view -R /home/pauliusb/snic2020-16-116/alignment/WORKING_FOLDER_SNPS/SNP_window_annotating/CMH_positions_no1stline.txt Jul20annotated.merged.I.noindels.vcf.gz -o Jul20.subsetted.CMH.vcf
 ```
-### Annotating MODERATE/HIGH impact snps in 10k window fst intervals
+### Annotating 10k fst windows (above 3 or 5 SD) overlapping with MODERATE/HIGH impact snps 
 ``` shell
 module load BEDTools
 
@@ -98,11 +98,7 @@ bedtools intersect -wb -a bedjul23.shortened.bed -b fst_final_3sd.BED > joined3s
 bedtools intersect -wb -a bedjul23.shortened.bed -b fst_final_5sd.BED > joined5sd.bed
 ```
 
-#### looking into the frequencies table with less
-
-![image](CHR_POS_etc.PNG)
-
-### ggplot script (importing, blank cell removal, filtering on allele frequency >0 and the sum of DP4>19)
+### OPTIONAL (only for bcftools called snp frequencies) ggplot script (importing, blank cell removal, filtering on allele frequency >0 and the sum of DP4>19)
 ``` shell
 library(tidyverse)
 library(dplyr)
@@ -436,14 +432,4 @@ IP6.diff<-IP6_diff %>%
 ggarrange(IP1.diff,IP2.diff,IP3.diff,IP4.diff,IP5.diff,IP6.diff, ncol=3,nrow=2, common.legend = TRUE, legend = 'bottom')
 ggsave('combined4_sumDP4more19.pdf',width = 10, height = 5)
 
-```
-### Allele frequencies of ALT per chromosome per position I (before; above) P (after; below)
-![image](combined4_sumDP4more19.png) 
- 
-# Calling variants and retaining only FET identified snps
-``` shell
-bcftools mpileup --bam-list list_bam -d 500 -Ou --min-MQ 30 --min-BQ 30 --adjust-MQ 50 -f $ref | bcftools call -mv -Ov -o IP2_allvariants.vcf
-bgzip -c IP2_allvariants.vcf > IP2_allvariants.vcf.gz
-bcftools index IP2_allvariants.vcf.gz
-bcftools view -R IP.table.snpsites.txt -Ov -o IP2_FETvariantsonly.vcf IP2_allvariants.vcf.gz
 ```
