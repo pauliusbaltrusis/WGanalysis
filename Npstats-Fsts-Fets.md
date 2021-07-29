@@ -232,7 +232,8 @@ ggsave("Genewise_comparison2.png")
 
 tablegenewisehigherthanpgp1<-dplyr::filter(genewise, Fst>0.04251413)
 ```
-```{r}
+``` shell
+## gene names were reset after using GenomeTools gff3_to_gtf. It's better to use unconverted, original .gtf if available
 candidate_list<-dplyr::filter(genewise, gene==18930 | gene==2927 |gene== 2055 |gene== 7837| gene== 16528 | gene==947
                               | gene==1504 | gene==6560 | gene==16528 | gene==101 | gene==15246 | gene==14130 |
                                 gene==16296 | gene==3653 | gene==12402 | gene==2699 | gene==10029 | gene==4237 |
