@@ -1,4 +1,6 @@
 # WGanalysis
+Full code together with explanations for the upcoming publication 'Genome-wide analysis of ivermectin treatment in a Swedish field population of _Haemonchus contortus_'
+
 ## Code for CMH analysis with Popoolation2
 The code is here https://github.com/pauliusbaltrusis/WGanalysis/blob/main/CMH_code.md
 ## Code for SNP calling and variant analysis
