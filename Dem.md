@@ -1,5 +1,5 @@
 ```shell
-lima INPUT BARCODES(.FASTA) OUTPUT --split-named --min-score 80
+lima ../raw_data/ps_365_001.fastq.gz ../tags_primers/8tags.fasta p1.fastq --split-named --min-score 80
 ```
 ```shell
 for i in p1.*.fastq
