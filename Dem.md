@@ -5,6 +5,6 @@ lima INPUT BARCODES(.FASTA) OUTPUT --split-named --min-score 80
 for i in ../p1.*.fastq
   do
   base=$(basename $i .fastq)
-  lima ../$i ../../tags_primers/primers.fasta $base_dep.fastq --different
+  lima $i ../../tags_primers/primers.fasta $base_dep.fastq --different
   done
   ```
