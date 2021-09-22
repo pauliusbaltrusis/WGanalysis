@@ -1,6 +1,6 @@
 ## POOL1
 ```shell
-lima ../raw_data/ps_365_001.fastq.gz ../tags_primers/8tags.fasta p1.fastq --split-named --min-score 80 --same # demultiplexing pool 1
+lima ../raw_data/ps_365_001.fastq.gz ../tags_primers/pool1_tags/9tags.fasta p1.fastq --split-named --min-score 80 --min-length 150 --same # demultiplexing pool 1 using pool1 tags
 ```
 ```shell
 for i in ../p1.*.fastq
