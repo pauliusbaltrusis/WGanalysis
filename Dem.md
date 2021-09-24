@@ -9,3 +9,7 @@ for i in ../p1.*.fastq
   lima $i ../../tags_primers/primers.fasta ${base}_dep.fastq --different --min-score 80 # Removing primers from pool 1
   done
   ```
+
+``` shell
+sed '1n;s/pattern/replacement/;n' ## In order to add ";" to the ending of every second line starting from the first
+```
