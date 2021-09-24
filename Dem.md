@@ -11,5 +11,5 @@ for i in ../p1.*.fastq
   ```
 
 ``` shell
-sed '1n;s/pattern/replacement/;n' ## In order to add ";" to the ending of every second line starting from the first
+sed '2n;s/pattern/replacement/;n' ## In order to add ";" to the ending of every second line starting from the first
 ```
