@@ -406,3 +406,6 @@ sheep_inv2<-sheep_inv1[-147:-148,]
 ### print it
 write_tsv(sheep_inv2, "pool5_05percent_filtered")
 ```
+```shell
+Remove ASVs that have 0 occurences after the 3 filtering steps above
+```
