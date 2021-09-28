@@ -369,7 +369,7 @@ write.table(x=data.frame(taxa3.print), file="pool3_species",row.names = T)
 write.table(x=data.frame(taxa4.print), file="pool4_species",row.names = T)
 write.table(x=data.frame(taxa5.print), file="pool5_species",row.names = T)
 ```
-## In Excel
+## In Excel & R
 ```shell
 Remove singleton reads (i.e. ASVs that only appear once! in pool5 that's only 1 ASV)
 Remove ASVs (per sample) that comprise less than 0.5% of total reads (per sample)
