@@ -375,3 +375,34 @@ Remove singleton reads (i.e. ASVs that only appear once! in pool5 that's only 1 
 Remove ASVs (per sample) that comprise less than 0.5% of total reads (per sample)
 Remove samples wherein total number of reads below 100
 ```
+```shell
+## Some filtering
+### Retain ASVs (columns where sum > 1)
+library(tidyverse)
+ ##Import, replace commans with dots
+sheep_pool<-read_tsv('C:/Users/pauli/OneDrive/Desktop/pool data/frequencies/pool5_frequencies_table2.txt')
+sheep_pool$`05percent`<-gsub(",", ".", sheep_pool$`05percent`)
+
+## filter each DF column (containing 1 sample) by a vector value containing 0.5% read threshold for that sample
+###Load inverted DF, make a vector of the 0.5% read frequency thresholds
+sheep_inv<-read_tsv('C:/Users/pauli/OneDrive/Desktop/pool data/frequencies/pool5_frequencies_table_inv1.txt')
+sheep_inv1<-sheep_inv
+halfpercent<-as.vector(sheep_inv1[148,], mode = 'numeric')
+halfpercent
+### loop it
+for (i in 2:94){
+  x<-sheep_inv1[, i]
+  x[x<halfpercent[i]]=0
+  sheep_inv1[,i] <- x
+}
+
+## WORKS for individual columns too!
+x<-sheep_inv1[, 3]
+x[x<halfpercent[3]]=0
+sheep_inv1[,3] <- x
+
+### get rid of two last rows containing irrelevant data
+sheep_inv2<-sheep_inv1[-147:-148,]
+### print it
+write_tsv(sheep_inv2, "pool5_05percent_filtered")
+```
