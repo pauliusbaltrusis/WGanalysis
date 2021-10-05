@@ -27,4 +27,7 @@ system(mv nemabiome.trim.contigs.good.good.nematode_taxonomy_1_3.knn.tax.summary
 ```
 ``` shell
 sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
+
+
+sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
 ```
