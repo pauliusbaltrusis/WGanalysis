@@ -25,3 +25,6 @@ split.groups(fasta=nemabiome.trim.contigs.good.fasta, group=nemabiome.contigs.go
 
 system(mv nemabiome.trim.contigs.good.good.nematode_taxonomy_1_3.knn.tax.summary nemabiome_results.summary)\
 ```
+``` shell
+sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
+```
