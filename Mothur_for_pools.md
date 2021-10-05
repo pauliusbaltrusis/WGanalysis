@@ -33,12 +33,26 @@ sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
 ```
 ``` R
 path<-''
-files<- list.files(path=path,pattern='.fasta'
+files<- list.files(path=path,pattern='.fasta')
 ## Import many files from the same dir
-for (file in files)
+## create data frames with a second column containing sample names(cut)
+for (f in 1:length(files))
 {
-perpos<-which(strsplit(file,"")[[1]]=='-') ## splitting the filename string by "-"
-assign(
-gsub(" ","",substr(file, 1 perpos-1)),
-read.delim(paste(path,file,sep=""), header=F))
+  file_name<-str_sub(string=files[f], start=58, end=-15)
+  file_df<-read.delim(files[f], header = F)
+  file_df$V2<- file_name
+  assign(x=file_name, value=file_df,envir=.GlobalEnv)
+  
+}
+
+
+## make a huge list of all data.frames in the global environment space
+l.df<-lapply(ls(), function(x) if (class(get(x))=='data.frame') get(x))
+## alternatively l.df<-lapply(ls(pattern="df[0-9+]"), function(x) get(x))
+
+## bind rows in a list
+p5_groups<-bind_rows(l.df)
+
+## write it out
+write.table(p5_groups, file="p5_groups_file.GROUPS", col.names = F, row.names = F, sep='\t', quote = F)
 ```
