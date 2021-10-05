@@ -31,3 +31,14 @@ sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
 
 sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
 ```
+``` R
+path<-''
+files<- list.files(path=path,pattern='.fasta'
+## Import many files from the same dir
+for (file in files)
+{
+perpos<-which(strsplit(file,"")[[1]]=='-') ## splitting the filename string by "-"
+assign(
+gsub(" ","",substr(file, 1 perpos-1)),
+read.delim(paste(path,file,sep=""), header=F))
+```
