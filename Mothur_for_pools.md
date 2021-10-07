@@ -2,40 +2,34 @@
 
 ### According to nemabiome.ca:
 ```shell
-make.contigs(file=nemabiome.files, processors=4) ### skip this, since it's pacbio reads. Use cutadapt files from the previous DADA2 pipeline
+#Not needed. make.contigs(file=nemabiome.files, processors=4)
+1. screen.seqs(fasta=p5.fasta, minlength=200, maxlength=450, maxambig=0, group=p5.groups, processors=2)
 
+2.align.seqs(candidate=p5.good.fasta, template=nematode1_3.fasta) ## 120585 of your sequences generated alignments that eliminated too many bases, a list is provided in D:\Mothur_pipeline\p5.good.flip.accnos.
 
-screen.seqs(fasta=nemabiome.trim.contigs.fasta, minlength=200, maxlength=450, maxambig=0, group=nemabiome.contigs.groups, processors=2) ### the same as filterandtrim in DADA2\
+3.screen.seqs(fasta=p5.good.align, alignreport=p5.good.align.report, minsim=90, minscore=10, group=p5.good.groups) # removed 12537 seqs
 
+4.classify.seqs(fasta=p5.good.good.align, template=nematode1_3.fasta, taxonomy=nematode1_3.tax, method=knn, processors=2, numwanted=3)
 
-align.seqs(candidate=nemabiome.trim.contigs.good.fasta, template=mothur.fasta) ### No dereplication, chimera removal prior to this??\
+5. summary.tax(taxonomy=p5.good.good.nematode1_3.knn.taxonomy, group=p5.good.good.groups) ## Warning! Should not use '--' these in the group names
 
+6.split.groups(fasta=p5.good.fasta, group=p5.good.groups)
 
-screen.seqs(fasta=nemabiome.trim.contigs.good.align, alignreport=nemabiome.trim.contigs.good.align.report, minsim=90, minscore=10, group=nemabiome.contigs.good.groups) ## min similarity of 90% and score of 10?\
-
-
-classify.seqs(fasta=nemabiome.trim.contigs.good.good.align, template=mothur.fasta, taxonomy=mothur.tax, method=knn, processors=2, numwanted=3)\
-
-
-summary.tax(taxonomy=nemabiome.trim.contigs.good.good.mothur.tax, group=nemabiome.contigs.good.good.groups)\
-
-
-split.groups(fasta=nemabiome.trim.contigs.good.fasta, group=nemabiome.contigs.good.groups)\
-
-
-system(mv nemabiome.trim.contigs.good.good.nematode_taxonomy_1_3.knn.tax.summary nemabiome_results.summary)\
+7. system(mv p5.good.good.nematode1_3.knn.tax.summary p5_results.summary) ## did it manually (i.e. the name changing)
 ```
+### Optional commands to facilitate format conversions
 ``` shell
 sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
 
 
 sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
 ```
+### Handling many .fasta files in R
 ``` R
 path<-''
 files<- list.files(path=path,pattern='.fasta')
 ## Import many files from the same dir
-## create data frames with a second column containing sample names(cut)
+### Create data frames with a second column containing sample names(cut)
 for (f in 1:length(files))
 {
   file_name<-str_sub(string=files[f], start=58, end=-15)
