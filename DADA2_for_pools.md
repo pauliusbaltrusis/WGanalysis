@@ -409,3 +409,18 @@ write_tsv(sheep_inv2, "pool5_05percent_filtered")
 ```shell
 Remove ASVs that have 0 occurences after the 3 filtering steps above
 ```
+```shell
+backbone plot script:
+ggplot(aes(fill=Group.1,y=Frc, x=Strongyles))+
+  geom_bar(color='black', stat='identity')+
+  theme(axis.text.x = element_text(angle = 90, size = 14, colour = "black", vjust = 0.5, hjust = 1, face= "bold"), 
+    axis.title.y = element_text(size = 16, face = "bold"), legend.title = element_text(size = 16, face = "bold"), 
+    legend.text = element_text(size = 12, face = "bold", colour = "black"), 
+    axis.text.y = element_text(colour = "black", size = 12, face = "bold")) + 
+  scale_y_continuous(expand = c(0,0)) + 
+  theme_bw()+
+  scale_fill_manual(values=colours)
+  
+  colours = c( "#A54657",  "#582630", "#F7EE7F", "#4DAA57","#F1A66A","#F26157", "#F9ECCC", "#679289", "#33658A",
+"#F6AE2D","#86BBD8","#405967")
+```
