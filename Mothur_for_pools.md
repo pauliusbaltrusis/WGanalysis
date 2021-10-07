@@ -16,6 +16,9 @@
 6.split.groups(fasta=p5.good.fasta, group=p5.good.groups)
 
 7. system(mv p5.good.good.nematode1_3.knn.tax.summary p5_results.summary) ## did it manually (i.e. the name changing)
+
+NOTES:
+.groups file should have the first column ending in a unique identifier (i.e. 525634, 525635 etc.) and not contain symbols '-', ':'...
 ```
 ### Optional commands to facilitate format conversions
 ``` shell
