@@ -53,3 +53,10 @@ p5_groups<-bind_rows(l.df)
 ## write it out
 write.table(p5_groups, file="p5_groups_file.GROUPS", col.names = F, row.names = F, sep='\t', quote = F)
 ```
+### Assessing Mothur's output in Excel
+#### Criteria
+```shell
+Remove singleton reads for each species/genus 
+Remove ASVs (per sample) that comprise less than 0.5% of total reads (per sample)
+Remove samples wherein total number of reads below 100
+```
