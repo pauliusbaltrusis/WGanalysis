@@ -23,7 +23,7 @@ NOTES:
 ### Optional commands to facilitate format conversions
 ``` shell
 sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
-
+THEN CONCATENATE ALL .FASTA FILES into 1
 
 sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
 ```
