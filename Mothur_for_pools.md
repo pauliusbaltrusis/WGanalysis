@@ -26,6 +26,7 @@ sed -n '1~4s/^@/>/p;2~4p' in.fastq > out.fasta ## convert .fastq to .fasta
 THEN CONCATENATE ALL .FASTA FILES into 1
 
 sed -n '1~2p' file > file.out ## print every 2nd line starting from 1st
+Then generate headers and add a column with tag pairs to generate the .groups file
 ```
 ### Handling many .fasta files in R
 ``` R
